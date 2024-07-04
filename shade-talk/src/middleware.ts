@@ -1,14 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
-export { default } from "next-auth/middleware";
 
-// config matcher to redirect unauthenticated users to the sign-in page and authenticated users to the dashboard
-// config used for on which paths need to run middleware
-export const config = {
-  matcher: ["/dashboard/:path*", "/sign-in", "/sign-up", "/", "/verify/:path*"],
-};
-
-export async function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest): Promise<NextResponse> {
   const token = await getToken({ req: request });
   const url = request.nextUrl;
 
@@ -23,8 +16,24 @@ export async function middleware(request: NextRequest) {
   ) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
-  // authorization for dashboard
-  if (!token && url.pathname.startsWith("/dashboard")) {
+
+  // Authorization for admin panel only
+  // if (
+  //   token &&
+  //   url.pathname.startsWith("/adminPanel") &&
+  //   token.role !== "admin"
+  // ) {
+  //   return NextResponse.redirect(new URL("/dashboard", request.url));
+  // }
+
+  // Redirect to sign-in if the user is not authenticated
+  if (
+    !token &&
+    (url.pathname.startsWith("/dashboard") ||
+      url.pathname.startsWith("/me") ||
+      url.pathname.startsWith("/profile") ||
+      url.pathname.startsWith("/adminPanel"))
+  ) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
 
