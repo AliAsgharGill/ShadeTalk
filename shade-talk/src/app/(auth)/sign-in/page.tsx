@@ -21,14 +21,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
 const SignIn = () => {
-  const [username, setUsername] = useState("");
-  const [usernameMessage, setUsernameMessage] = useState("");
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -69,16 +64,8 @@ const SignIn = () => {
     }
   };
 
-  const handleToast = () => {
-    toast({
-      title: "Scheduled: Catch up",
-      description: "Friday, February 10, 2023 at 5:57 PM",
-    });
-  };
-
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      {/* <button onClick={handleToast}>Toast</button> */}
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-xl flex justify-center font-extrabold tracking-tight lg:text-4xl mb-6  text-center">
           SignIn To ShadeTalk
@@ -138,12 +125,7 @@ const SignIn = () => {
                   </FormItem>
                 )}
               />
-              <Button
-                type="submit"
-                variant="default"
-                className="w-full"
-                disabled={isSubmitting}
-              >
+              <Button type="submit" variant="default" className="w-full">
                 SignIn
               </Button>
             </form>
