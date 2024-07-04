@@ -91,16 +91,8 @@ const Signup = () => {
     setIsSubmitting(false);
   };
 
-  const handleToast = () => {
-    toast({
-      title: "Scheduled: Catch up",
-      description: "Friday, February 10, 2023 at 5:57 PM",
-    });
-  };
-
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      {/* <button onClick={handleToast}>Toast</button> */}
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-xl flex justify-center font-extrabold tracking-tight lg:text-5xl mb-6 ">
           Join ShadeTalk

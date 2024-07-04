@@ -23,9 +23,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
+import { Loader2 } from "lucide-react";
+
 const SignIn = () => {
   const { toast } = useToast();
   const router = useRouter();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // zod implementation
   const form = useForm<z.infer<typeof signInSchema>>({
@@ -37,6 +41,7 @@ const SignIn = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+    setIsSubmitting(true);
     const result = await signIn("credentials", {
       identifier: data.identifier,
       password: data.password,
@@ -50,12 +55,14 @@ const SignIn = () => {
           description: "Invalid username or password",
           variant: "destructive",
         });
+        setIsSubmitting(false);
       } else {
         toast({
           title: "Error",
           description: result.error,
           variant: "destructive",
         });
+        setIsSubmitting(false);
       }
     }
 
@@ -125,8 +132,20 @@ const SignIn = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" variant="default" className="w-full">
-                SignIn
+              <Button
+                type="submit"
+                variant="default"
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Signing In  ...
+                  </>
+                ) : (
+                  "Sign In"
+                )}
               </Button>
             </form>
           </Form>
