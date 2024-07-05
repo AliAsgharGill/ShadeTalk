@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-// mongoose used for mongodb connection 
-// we are using mongoose to store messages in mongodb,  
+// mongoose used for mongodb connection
+// we are using mongoose to store messages in mongodb,
 // Define the message schema here using the Schema class from Mongoose for MongoDB
 export interface Message extends Document {
   content: string;
@@ -69,6 +69,7 @@ const UserSchema: Schema<User> = new Schema({
   messages: [MessageSchema],
 });
 
+//  in the following code we are using or operator because we want to check either User model already exist or not, if existh then return first part mean model of user that written before OR operator or either create new user in the mongoDB using mongooese.
 const UserModel =
   (mongoose.models.User as mongoose.Model<User>) ||
   mongoose.model<User>("User", UserSchema);

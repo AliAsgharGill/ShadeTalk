@@ -181,7 +181,7 @@ const Signup = () => {
                       />
                     </FormControl>
                     <FormDescription>
-                      Please write storng password.
+                      Please write strong password.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
