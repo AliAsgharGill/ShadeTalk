@@ -1,5 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 
+// mongoose used for mongodb connection 
+// we are using mongoose to store messages in mongodb,  
 // Define the message schema here using the Schema class from Mongoose for MongoDB
 export interface Message extends Document {
   content: string;
