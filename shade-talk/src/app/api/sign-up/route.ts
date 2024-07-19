@@ -5,11 +5,11 @@ import { sendVerificationEmail } from '@/helpers/sendVerificationEmail';
 
 // Main handler for POST request
 export async function POST(request: Request) {
+  // CONNECTION TO DB
   await dbConnect();
 
   try {
     const { username, email, password } = await request.json();
-
     // Check if username already taken by a verified user or not
     const existingVerifiedUserByUsername = await UserModel.findOne({
       username,
